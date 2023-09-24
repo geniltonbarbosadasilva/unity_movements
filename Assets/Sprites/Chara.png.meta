@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Chara - BlueIdle00000_0
+      name: Chara
       rect:
         serializedVersion: 2
         x: 178
@@ -118,7 +118,7 @@ TextureImporter:
         width: 154
         height: 278
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -141,7 +141,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Chara - BlueIdle00000_0: -1373116963
+      Chara: -1373116963
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
