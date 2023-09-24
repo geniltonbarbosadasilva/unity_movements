@@ -1,40 +1,33 @@
+using TMPro;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     private float horizontalInput;
-    private float speed = 8.0f;
-    private float jumpingPower = 16.0f;
     private bool isFacingRight = true;
+    [Range(0.0f, 100.0f)] public float speed = 10.0f;
+    [Range(0.0f, 100.0f)] public float jumpingPower = 15.0f;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
 
-    void Update()
+    public void Update()
     {
         horizontalInput = Input.GetAxis("Horizontal");
-        Flip();
-        Jump();
+
+        // Jump
+        if (IsGrounded() && Input.GetButtonDown("Jump"))
+            rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+        if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f)
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
     }
 
-    private void FixedUpdate()
+    public void FixedUpdate()
     {
-        Walk();
-    }
-
-    private bool IsGrounded()
-    {
-        Debug.Log(groundCheck.position);
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
-    }
-
-    private void Walk()
-    {
+        // Walk
         rb.velocity = new Vector2(horizontalInput * speed, rb.velocity.y);
-    }
 
-    private void Flip()
-    {
+        // Flip
         if (isFacingRight && horizontalInput < 0f || !isFacingRight && horizontalInput > 0f)
         {
             isFacingRight = !isFacingRight;
@@ -42,16 +35,8 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void Jump()
+    private bool IsGrounded()
     {
-        if (Input.GetButtonDown("Jump") && IsGrounded())
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
-        }
-
-        if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
-        }
+        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
     }
 }
